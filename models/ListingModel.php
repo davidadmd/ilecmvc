@@ -38,8 +38,9 @@ class ListingModel extends Model{
     }
     public function assign_ticket_to_admin($user_id,$ticket_id){
 
-        $stmt = $this->db->prepare("update {$this->table} set admin_id = :user_id where id = :ticket_id");
+        $stmt = $this->db->prepare("update {$this->table} set status = 'En cours de traitement', :user_id where id = :ticket_id");
         $stmt->execute([':user_id' => $user_id, ':ticket_id' => $ticket_id]);
+
     }
     
 }
