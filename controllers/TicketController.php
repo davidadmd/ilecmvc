@@ -2,6 +2,7 @@
 namespace Controllers;
 use PDO;
 use Models\ListingModel;
+use Controllers\ReportController;
 
 class TicketController extends Controller{
     public function __construct(PDO $db){
@@ -50,7 +51,9 @@ class TicketController extends Controller{
                 $listingModel = new ListingModel($this->db);
                 
                 $success = $listingModel->assign_ticket_to_admin($user_id, $ticket_id);
-                header("Location: /litemvc/admin");
+                $ReportController = new ReportController($this->db);
+                $ReportController->create_report_when_to_assign($ticket_id);
+                
             }
 
         }
